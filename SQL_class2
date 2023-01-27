@@ -1,0 +1,126 @@
+create database class2_db;
+
+use class2_db;
+
+create table person
+(
+    id int,
+    name VARCHAR(50),
+    city VARCHAR(50),
+    address VARCHAR(100)
+);
+
+insert into person values(1,'Abhilash','bhopal','link road');
+
+
+insert into person values(2,'Abhilash',NULL,'link road');
+
+insert into person values(3,'Ajay','betul','Ashoka garden');
+
+alter table person add constraint unq unique(id);
+alter table person add constraint pk primary key(id);
+
+alter table person add constraint not null(city);
+
+select * from person;
+
+alter table person drop constraint id;
+
+show create table person;
+
+insert into  person values(5,'Anjani','banglore','kangareddy');
+
+create table customer
+(
+    cust_id int,
+    name VARCHAR(50),
+    age int,
+    constraint pk PRIMARY KEY (cust_id)
+);
+
+create table orders
+(
+    order_id int,
+    order_num int,
+    customer_id int,
+    constraint pk primary key (order_id),
+    constraint fk foreign key (customer_id) REFERENCES customer(cust_id)
+);
+
+---Difference between drop command and truncate command.ADD
+select * from person;
+truncate table person;
+drop table person;
+
+create table employee
+(
+    id int,
+    name VARCHAR(50),
+    age int,
+    hiring_date date,
+    salary int,
+    city VARCHAR(50)
+);
+
+insert into employee values(1,'Abhilash',23,'22-05-15',20000,'bhopal');
+
+insert into employee values(2,'Ajay',24,'22-05-16',22000,'Indore');
+
+insert into employee values(3,'Akhilesh',24,'22-05-16',22000,'Indore');
+
+insert into employee values(1,'Ambar',26,'22-05-16',25000,'India');
+
+insert into employee values(4,'anshul',27,'22-05-15',26000,'Indira');
+
+insert into employee values(5,'Ankit',28,'22-05-18',21000,'uk');
+
+
+select * from employee;
+
+select count(*) from employee;
+
+select count(*) as total_row_count from employee;
+
+select hiring_date, name from employee;
+
+select hiring_date as hiring from employee;
+select distinct(hiring_date) as distinct_hiring_dates from employee;
+select count(age) from employee;
+select distinct(age) as distinct_age from employee;
+select count(distinct(age)) as total_unique_ages from employee;
+select salary*1.2 as incremented_salary from employee;
+select distinct(salary*1.1) as incremented_salary from employee;
+
+select  id,
+        name,
+        salary as old_salary,
+        (salary*1.2) as new_salary
+from employee; 
+
+update employee SET salary = salary + salary *0.2;
+
+--how to filer the data using where clauses
+
+select * from employee where hiring_date = '2022-05-15';
+
+select * from employee;
+
+update employee set salary = 80000 where hiring_date = '2022-05-15';
+
+
+delete from employee where id = 1;
+select * from employee;
+
+select distinct(hiring_date) from employee;
+
+select * from employee;
+
+--add multiple column.
+
+alter table employee add COLUMN DOB date, add column abc VARCHAR(50);
+
+select * from employee;
+
+--modify multiple column.
+
+alter table employee MODIFY column DOB date, modify column abc varchar(100);
